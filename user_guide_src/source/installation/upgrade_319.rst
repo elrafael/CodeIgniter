@@ -1,5 +1,5 @@
 #############################
-Upgrading from 3.0.6 to 3.0.7
+Upgrading from 3.1.8 to 3.1.9
 #############################
 
 Before performing an update you should take your site offline by
@@ -12,3 +12,10 @@ Replace all files and directories in your *system/* directory.
 
 .. note:: If you have any custom developed files in these directories,
 	please make copies of them first.
+
+********************************
+Step 3: Replace config/mimes.php
+********************************
+
+This config file has received some updates. Please copy it to
+*application/config/mimes.php*.

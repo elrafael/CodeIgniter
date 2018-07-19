@@ -10,12 +10,20 @@ class Date_helper_test extends CI_TestCase {
 
 	// ------------------------------------------------------------------------
 
+	public function test_nice_date()
+	{
+		$this->assertEquals('2016-11-01', nice_date('201611',   'Y-m-d'));
+		$this->assertEquals('2016-11-23', nice_date('20161123', 'Y-m-d'));
+	}
+
+	// ------------------------------------------------------------------------
+
 	public function test_now_local()
 	{
 		/*
 
 		// This stub job, is simply to cater $config['time_reference']
-		$config = $this->getMock('CI_Config');
+		$config = $this->getMockBuilder('CI_Config')->getMock();
 		$config->expects($this->any())
 			   ->method('item')
 			   ->will($this->returnValue('local'));
@@ -37,7 +45,7 @@ class Date_helper_test extends CI_TestCase {
 		/*
 
 		// This stub job, is simply to cater $config['time_reference']
-		$config = $this->getMock('CI_Config');
+		$config = $this->getMockBuilder('CI_Config')->getMock();
 		$config->expects($this->any())
 			   ->method('item')
 			   ->will($this->returnValue('UTC'));
@@ -288,7 +296,7 @@ class Date_helper_test extends CI_TestCase {
 		}
 
 		$this->assertArrayHasKey('UP3', timezones());
-		$this->assertEquals(0, timezones('non_existant'));
+		$this->assertEquals(0, timezones('non_existent'));
 	}
 
 	// ------------------------------------------------------------------------

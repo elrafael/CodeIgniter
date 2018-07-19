@@ -24,8 +24,8 @@ class Input_test extends CI_TestCase {
 
 	public function test_get_not_exists()
 	{
-		$this->assertTrue($this->input->get() === array());
-		$this->assertTrue($this->input->get('foo') === NULL);
+		$this->assertSame(array(), $this->input->get());
+		$this->assertNull($this->input->get('foo'));
 	}
 
 	// --------------------------------------------------------------------
@@ -55,8 +55,8 @@ class Input_test extends CI_TestCase {
 
 	public function test_post_not_exists()
 	{
-		$this->assertTrue($this->input->post() === array());
-		$this->assertTrue($this->input->post('foo') === NULL);
+		$this->assertSame(array(), $this->input->post());
+		$this->assertNull($this->input->post('foo'));
 	}
 
 	// --------------------------------------------------------------------
@@ -260,6 +260,12 @@ class Input_test extends CI_TestCase {
 		$_SERVER['HTTP_CLIENT_IP'] = 'FE80:0000:0000:0000:0202:B3FF:FE1E:8300';
 		$_SERVER['REMOTE_ADDR'] = 'FE80:0000:0000:0000:0202:B3FF:FE1E:8329';
 		$this->assertEquals('FE80:0000:0000:0000:0202:B3FF:FE1E:8300', $this->input->ip_address());
+
+		$this->input->ip_address = FALSE;
+		$this->ci_set_config('proxy_ips', '0::/32');
+		$_SERVER['HTTP_CLIENT_IP'] = '127.0.0.7';
+		$_SERVER['REMOTE_ADDR'] = '0000:0000:0000:0000:0000:0000:0000:0001';
+		$this->assertEquals('127.0.0.7', $this->input->ip_address());
 
 		$this->input->ip_address = FALSE;
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1'; // back to reality

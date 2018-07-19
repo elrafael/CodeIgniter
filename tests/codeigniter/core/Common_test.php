@@ -4,8 +4,8 @@ class Common_test extends CI_TestCase {
 
 	public function test_is_php()
 	{
-		$this->assertEquals(TRUE, is_php('1.2.0'));
-		$this->assertEquals(FALSE, is_php('9999.9.9'));
+		$this->assertTrue(is_php('1.2.0'));
+		$this->assertFalse(is_php('9999.9.9'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -54,4 +54,16 @@ class Common_test extends CI_TestCase {
 		);
 	}
 
+	// ------------------------------------------------------------------------
+
+	public function test_remove_invisible_characters()
+	{
+		$raw_string = 'Here is a string containing invisible'.chr(0x08).' text %0e.';
+		$removed_string = 'Here is a string containing invisible text %0e.';
+		$this->assertEquals($removed_string, remove_invisible_characters($raw_string, FALSE));
+
+		$raw_string = 'Here is a string %0econtaining url_encoded invisible%1F text.';
+		$removed_string = 'Here is a string containing url_encoded invisible text.';
+		$this->assertEquals($removed_string, remove_invisible_characters($raw_string));
+	}
 }

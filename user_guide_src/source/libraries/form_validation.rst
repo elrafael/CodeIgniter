@@ -495,8 +495,7 @@ The above code would use the ``valid_username()`` method from your
 
 This is just an example of course, and callbacks aren't limited to models.
 You can use any object/method that accepts the field value as its' first
-parameter. Or if you're running PHP 5.3+, you can also use an anonymous
-function::
+parameter. You can also use an anonymous function::
 
 	$this->form_validation->set_rules(
 		'username', 'Username',
@@ -522,7 +521,7 @@ the second element of an array, with the first one being the rule name::
 		)
 	);
 
-Anonymous function (PHP 5.3+) version::
+Anonymous function version::
 
 	$this->form_validation->set_rules(
 		'username', 'Username',
@@ -986,7 +985,7 @@ Rule                      Parameter  Description                                
 **valid_url**             No         Returns FALSE if the form element does not contain a valid URL.
 **valid_email**           No         Returns FALSE if the form element does not contain a valid email address.
 **valid_emails**          No         Returns FALSE if any value provided in a comma separated list is not a valid email.
-**valid_ip**              No         Returns FALSE if the supplied IP is not valid.
+**valid_ip**              Yes        Returns FALSE if the supplied IP address is not valid.
                                      Accepts an optional parameter of 'ipv4' or 'ipv6' to specify an IP format.
 **valid_base64**          No         Returns FALSE if the supplied string contains anything other than valid Base64 characters.
 ========================= ========== ============================================================================================= =======================
@@ -1028,11 +1027,12 @@ Class Reference
 
 .. php:class:: CI_Form_validation
 
-	.. php:method:: set_rules($field[, $label = ''[, $rules = '']])
+	.. php:method:: set_rules($field[, $label = ''[, $rules = ''[, $errors = array()]]])
 
 		:param	string	$field: Field name
 		:param	string	$label: Field label
 		:param	mixed	$rules: Validation rules, as a string list separated by a pipe "|", or as an array or rules
+		:param	array	$errors: A list of custom error messages
 		:returns:	CI_Form_validation instance (method chaining)
 		:rtype:	CI_Form_validation
 
