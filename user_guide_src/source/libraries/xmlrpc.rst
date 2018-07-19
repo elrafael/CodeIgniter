@@ -73,7 +73,7 @@ information:
 -  The *request* data (explained below).
 
 Here is a basic example that sends a simple Weblogs.com ping to the
-`Ping-o-Matic <http://pingomatic.com/>`_
+`Ping-o-Matic <https://pingomatic.com/>`_
 
 ::
 
@@ -489,6 +489,10 @@ Class Reference
 		Set a time out period (in seconds) after which the request will be canceled::
 
 			$this->xmlrpc->timeout(6);
+
+		This timeout period will be used both for an initial connection to 
+                the remote server, as well as for getting a response from it.
+                Make sure you set the timeout before calling ``send_request()``.
 
 	.. php:method:: method($function)
 

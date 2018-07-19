@@ -6,7 +6,7 @@ The Trackback Class provides functions that enable you to send and
 receive Trackback data.
 
 If you are not familiar with Trackbacks you'll find more information
-`here <http://en.wikipedia.org/wiki/Trackback>`_.
+`here <https://en.wikipedia.org/wiki/Trackback>`_.
 
 .. contents::
   :local:
@@ -262,7 +262,7 @@ Class Reference
 		:returns:	Data value or empty string if not found
 		:rtype:	string
 
-		Returns a single item from the reponse data array.
+		Returns a single item from the response data array.
 
 	.. php:method:: process($url, $data)
 

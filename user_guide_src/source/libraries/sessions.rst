@@ -112,7 +112,7 @@ Session data is simply an array associated with a particular session ID
 (cookie).
 
 If you've used sessions in PHP before, you should be familiar with PHP's
-`$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_
+`$_SESSION superglobal <https://secure.php.net/manual/en/reserved.variables.session.php>`_
 (if not, please read the content on that link).
 
 CodeIgniter gives access to its session data through the same means, as it
@@ -391,7 +391,7 @@ Destroying a Session
 ====================
 
 To clear the current session (for example, during a logout), you may
-simply use either PHP's `session_destroy() <http://php.net/session_destroy>`_
+simply use either PHP's `session_destroy() <https://secure.php.net/session_destroy>`_
 function, or the ``sess_destroy()`` method. Both will work in exactly the
 same way::
 
@@ -471,7 +471,7 @@ Preference         Default         Description
 
 .. note:: The 'cookie_httponly' setting doesn't have an effect on sessions.
 	Instead the HttpOnly parameter is always enabled, for security
-	reasons. Additionaly, the 'cookie_prefix' setting is completely
+	reasons. Additionally, the 'cookie_prefix' setting is completely
 	ignored.
 
 Session Drivers
@@ -516,7 +516,7 @@ mind that it is in fact not the same code and it has some limitations
 
 To be more specific, it doesn't support PHP's `directory level and mode
 formats used in session.save_path
-<http://php.net/manual/en/session.configuration.php#ini.session.save-path>`_,
+<https://secure.php.net/manual/en/session.configuration.php#ini.session.save-path>`_,
 and it has most of the options hard-coded for safety. Instead, only
 absolute paths are supported for ``$config['sess_save_path']``.
 
@@ -554,7 +554,7 @@ increase - which is the time when it matters - the file system will
 consistently outperform almost all relational database setups.
 
 In addition, if performance is your only concern, you may want to look
-into using `tmpfs <http://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_,
+into using `tmpfs <https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_,
 (warning: external resource), which can make your sessions blazing fast.
 
 Database Driver
@@ -594,7 +594,7 @@ And then of course, create the database table ...
 For MySQL::
 
 	CREATE TABLE IF NOT EXISTS `ci_sessions` (
-		`id` varchar(40) NOT NULL,
+		`id` varchar(128) NOT NULL,
 		`ip_address` varchar(45) NOT NULL,
 		`timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
 		`data` blob NOT NULL,
@@ -604,7 +604,7 @@ For MySQL::
 For PostgreSQL::
 
 	CREATE TABLE "ci_sessions" (
-		"id" varchar(40) NOT NULL,
+		"id" varchar(128) NOT NULL,
 		"ip_address" varchar(45) NOT NULL,
 		"timestamp" bigint DEFAULT 0 NOT NULL,
 		"data" text DEFAULT '' NOT NULL
@@ -679,7 +679,7 @@ Memcached Driver
 
 The 'memcached' driver is very similar to the 'redis' one in all of its
 properties, except perhaps for availability, because PHP's `Memcached
-<http://php.net/memcached>`_ extension is distributed via PECL and some
+<https://secure.php.net/memcached>`_ extension is distributed via PECL and some
 Linux distrubutions make it available as an easy to install package.
 
 Other than that, and without any intentional bias towards Redis, there's
@@ -754,11 +754,11 @@ when creating a session driver for CodeIgniter:
 
 
   - Implement the `SessionHandlerInterface
-    <http://php.net/sessionhandlerinterface>`_ interface.
+    <https://secure.php.net/sessionhandlerinterface>`_ interface.
 
     .. note:: You may notice that ``SessionHandlerInterface`` is provided
-    	by PHP since version 5.4.0. CodeIgniter will automatically declare
-    	the same interface if you're running an older PHP version.
+        by PHP since version 5.4.0. CodeIgniter will automatically declare
+        the same interface if you're running an older PHP version.
 
     The link will explain why and how.
 
@@ -906,7 +906,7 @@ Class Reference
 		Gets a list of all ``$_SESSION`` that have been marked as
 		"flashdata".
 
-	.. php:method:: umark_flash($key)
+	.. php:method:: unmark_flash($key)
 
 		:param	mixed	$key: Key to be un-marked as flashdata, or an array of multiple keys
 		:rtype:	void
@@ -971,7 +971,7 @@ Class Reference
 		Gets a list of all ``$_SESSION`` that have been marked as
 		"tempdata".
 
-	.. php:method:: umark_temp($key)
+	.. php:method:: unmark_temp($key)
 
 		:param	mixed	$key: Key to be un-marked as tempdata, or an array of multiple keys
 		:rtype:	void
@@ -1016,7 +1016,7 @@ Class Reference
 
 		.. note:: This method is just an alias for PHP's native
 			`session_regenerate_id()
-			<http://php.net/session_regenerate_id>`_ function.
+			<https://secure.php.net/session_regenerate_id>`_ function.
 
 	.. php:method:: sess_destroy()
 
@@ -1030,7 +1030,7 @@ Class Reference
 
 		.. note:: This method is just an alias for PHP's native
 			`session_destroy()
-			<http://php.net/session_destroy>`_ function.
+			<https://secure.php.net/session_destroy>`_ function.
 
 	.. php:method:: __get($key)
 

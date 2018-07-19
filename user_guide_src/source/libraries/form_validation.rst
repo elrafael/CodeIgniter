@@ -465,7 +465,7 @@ for you to process.
 To invoke a callback just put the method name in a rule, with
 "callback\_" as the rule **prefix**. If you need to receive an extra
 parameter in your callback method, just add it normally after the
-method name between square brackets, as in: "callback_foo**[bar]**",
+method name between square brackets, as in: ``callback_foo[bar]``,
 then it will be passed as the second argument of your callback method.
 
 .. note:: You can also process the form data that is passed to your
@@ -495,8 +495,7 @@ The above code would use the ``valid_username()`` method from your
 
 This is just an example of course, and callbacks aren't limited to models.
 You can use any object/method that accepts the field value as its' first
-parameter. Or if you're running PHP 5.3+, you can also use an anonymous
-function::
+parameter. You can also use an anonymous function::
 
 	$this->form_validation->set_rules(
 		'username', 'Username',
@@ -522,7 +521,7 @@ the second element of an array, with the first one being the rule name::
 		)
 	);
 
-Anonymous function (PHP 5.3+) version::
+Anonymous function version::
 
 	$this->form_validation->set_rules(
 		'username', 'Username',
@@ -882,6 +881,24 @@ When a rule group is named identically to a controller class/method it
 will be used automatically when the ``run()`` method is invoked from that
 class/method.
 
+Accessing validated/processed data
+==================================
+
+By default, validation will be performed directly on the ``$_POST`` array,
+and any possible modifications (like trimming whitespace, for example)
+would be written back onto it.  
+However, if you want to keep the original input data intact, or have used
+``set_data()`` to pass a custom set of inputs, you would likely want to
+fetch the now-modified data. In order to do that, you can pass a variable
+as the second parameter to ``run()``::
+
+	$input  = array('name' => '   White Space  ');
+	$output = NULL;
+	
+	$this->form_validation->set_rules('name', 'Name', 'required|trim');
+	$this->form_validation->run(NULL, $output);
+	// $output will now contain: array('name' => 'White Space');
+
 .. _using-arrays-as-field-names:
 
 ***************************
@@ -986,8 +1003,9 @@ Rule                      Parameter  Description                                
 **valid_url**             No         Returns FALSE if the form element does not contain a valid URL.
 **valid_email**           No         Returns FALSE if the form element does not contain a valid email address.
 **valid_emails**          No         Returns FALSE if any value provided in a comma separated list is not a valid email.
-**valid_ip**              No         Returns FALSE if the supplied IP is not valid.
+**valid_ip**              Yes        Returns FALSE if the supplied IP address is not valid.
                                      Accepts an optional parameter of 'ipv4' or 'ipv6' to specify an IP format.
+**valid_mac**             No         Returns FALSE if the supplied MAC address is not valid.
 **valid_base64**          No         Returns FALSE if the supplied string contains anything other than valid Base64 characters.
 ========================= ========== ============================================================================================= =======================
 
@@ -1010,7 +1028,6 @@ to use:
 ==================== ========= ==============================================================================================================
 Name                 Parameter Description
 ==================== ========= ==============================================================================================================
-**prep_for_form**    No        DEPRECATED: Converts special characters so that HTML data can be shown in a form field without breaking it.
 **prep_url**         No        Adds "\http://" to URLs if missing.
 **strip_image_tags** No        Strips the HTML from image tags leaving the raw URL.
 **encode_php_tags**  No        Converts PHP tags to entities.
@@ -1028,12 +1045,14 @@ Class Reference
 
 .. php:class:: CI_Form_validation
 
-	.. php:method:: set_rules($field[, $label = ''[, $rules = '']])
+	.. php:method:: set_rules($field[, $label = null[, $rules = null[, $errors = array()]]])
 
 		:param	string	$field: Field name
 		:param	string	$label: Field label
 		:param	mixed	$rules: Validation rules, as a string list separated by a pipe "|", or as an array or rules
+		:param	array	$errors: A list of custom error messages
 		:returns:	CI_Form_validation instance (method chaining)
+		:throws:	BadMethodCallException	If $field is not an array and $rules was not used
 		:rtype:	CI_Form_validation
 
 		Permits you to set validation rules, as described in the tutorial
@@ -1042,9 +1061,10 @@ Class Reference
 		-  :ref:`setting-validation-rules`
 		-  :ref:`saving-groups`
 
-	.. php:method:: run([$group = ''])
+	.. php:method:: run([$config = NULL[, $data = NULL]])
 
 		:param	string	$group: The name of the validation group to run
+		:param	mixed	$data: Optional variable to assign validated data to
 		:returns:	TRUE on success, FALSE if validation failed
 		:rtype:	bool
 

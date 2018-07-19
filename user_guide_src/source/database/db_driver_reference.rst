@@ -108,6 +108,16 @@ This article is intended to be a reference for them.
 		for use when you don't need to get a result object or to
 		just send a query to the database and not care for the result.
 
+	.. php:method:: affected_rows()
+
+		:returns:	Number of rows affected
+		:rtype:	int
+
+		Returns the number of rows *changed* by the last executed query.
+
+		Useful for checking how much rows were created, updated or deleted
+		during the last executed query.
+
 	.. php:method:: trans_strict([$mode = TRUE])
 
 		:param	bool	$mode: Strict mode flag
@@ -295,9 +305,10 @@ This article is intended to be a reference for them.
 
 		Gets a list containing field data about a table.
 
-	.. php:method:: escape_identifiers($item)
+	.. php:method:: escape_identifiers($item, $split = TRUE)
 
 		:param	mixed	$item: The item or array of items to escape
+		:param	bool	$split: Whether to split identifiers when a dot is encountered
 		:returns:	The input item(s), escaped
 		:rtype:	mixed
 
